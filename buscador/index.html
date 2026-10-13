@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA 21 - Buscador Seguro con PDO</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="search-box">
+        <h2>Catálogo de Productos</h2>
+
+        <form id="form-buscar">
+            <div class="form-group">
+                <input
+                    type="text"
+                    id="input-buscar"
+                    placeholder="Buscar por nombre o categoría..."
+                    maxlength="100"
+                    required
+                >
+                <button type="submit">Buscar</button>
+            </div>
+
+            <div class="modo">
+                <label for="select-modo">Endpoint:</label>
+                <select id="select-modo">
+                    <option value="api/buscador-seguro.php">Seguro (consulta preparada)</option>
+                    <option value="api/buscador-vulnerable.php">Vulnerable (concatenación)</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <!-- Contenedor dinámico cargado mediante app.js -->
+    <p id="estado"></p>
+    <div id="resultados"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
