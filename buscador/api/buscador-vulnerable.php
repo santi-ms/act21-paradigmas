@@ -1,5 +1,7 @@
 <?php
 // ❌ CÓDIGO VULNERABLE: Concatenación directa dentro del LIKE
+require_once '../includes/sesion.php';
+exigir_sesion(); // Guardián: sin sesión responde 401 y no llega a la base de datos
 require_once '../../config/conexion.php';
 
 $q = $_GET['q'] ?? '';

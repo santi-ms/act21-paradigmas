@@ -110,3 +110,112 @@
             margin-top: 6px;
             color: #6c757d;
         }
+
+        .oculto {
+            display: none !important;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .btn-tab {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .btn-tab:hover {
+            background-color: #dee2e6;
+        }
+
+        .btn-tab.active {
+            background-color: #0d6efd;
+            color: #ffffff;
+        }
+
+        .campo {
+            margin-bottom: 14px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .campo input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .campo input:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+        }
+
+        .mensaje-box:empty {
+            display: none;
+        }
+
+        .mensaje-box {
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin: 0 0 14px 0;
+        }
+
+        .mensaje-box.info {
+            background-color: #e7f1ff;
+            color: #084298;
+        }
+
+        .mensaje-box.exito {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .mensaje-box.error {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .panel-header h2 {
+            margin-bottom: 4px;
+        }
+
+        .usuario-info {
+            margin: 0;
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .badge {
+            background-color: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+        }

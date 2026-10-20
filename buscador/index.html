@@ -3,39 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AA 21 - Buscador Seguro con PDO</title>
+    <title>AA 23 - Buscador con Sesiones Seguras</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <div class="search-box">
-        <h2>Catálogo de Productos</h2>
+    <!-- VISTA PÚBLICA: navegación entre login y registro -->
+    <nav id="nav-publico" class="nav-tabs">
+        <button type="button" id="tab-login" class="btn-tab active">Iniciar sesión</button>
+        <button type="button" id="tab-registro" class="btn-tab">Crear cuenta</button>
+    </nav>
 
-        <form id="form-buscar">
-            <div class="form-group">
-                <input
-                    type="text"
-                    id="input-buscar"
-                    placeholder="Buscar por nombre o categoría..."
-                    maxlength="100"
-                    required
-                >
-                <button type="submit">Buscar</button>
+    <section id="vista-login" class="search-box">
+        <h2>Ingreso al sistema</h2>
+        <p id="msg-login" class="mensaje-box"></p>
+        <form id="form-login">
+            <div class="campo">
+                <label for="login-email">Correo electrónico</label>
+                <input type="email" id="login-email" maxlength="100" required>
             </div>
-
-            <div class="modo">
-                <label for="select-modo">Endpoint:</label>
-                <select id="select-modo">
-                    <option value="api/buscador-seguro.php">Seguro (consulta preparada)</option>
-                    <option value="api/buscador-vulnerable.php">Vulnerable (concatenación)</option>
-                </select>
+            <div class="campo">
+                <label for="login-pass">Contraseña</label>
+                <input type="password" id="login-pass" maxlength="72" required>
             </div>
+            <button type="submit">Ingresar</button>
         </form>
-    </div>
+    </section>
 
-    <!-- Contenedor dinámico cargado mediante app.js -->
-    <p id="estado"></p>
-    <div id="resultados"></div>
+    <section id="vista-registro" class="search-box oculto">
+        <h2>Crear cuenta</h2>
+        <p id="msg-registro" class="mensaje-box"></p>
+        <form id="form-registro">
+            <div class="campo">
+                <label for="reg-nombre">Nombre completo</label>
+                <input type="text" id="reg-nombre" maxlength="100" required>
+            </div>
+            <div class="campo">
+                <label for="reg-email">Correo electrónico</label>
+                <input type="email" id="reg-email" maxlength="100" required>
+            </div>
+            <div class="campo">
+                <label for="reg-pass">Contraseña</label>
+                <input type="password" id="reg-pass" placeholder="Mínimo 8 caracteres" minlength="8" maxlength="72" required>
+            </div>
+            <button type="submit">Registrarme</button>
+        </form>
+    </section>
+
+    <!-- VISTA PRIVADA: solo visible con sesión activa -->
+    <section id="vista-panel" class="oculto">
+        <div class="search-box">
+            <div class="panel-header">
+                <div>
+                    <h2>Catálogo de Productos</h2>
+                    <p class="usuario-info">Sesión de <strong id="user-nombre"></strong> (<span id="user-email"></span>) · rol: <span id="user-rol" class="badge"></span></p>
+                </div>
+                <button type="button" id="btn-logout" class="btn-danger">Cerrar sesión</button>
+            </div>
+
+            <form id="form-buscar">
+                <div class="form-group">
+                    <input
+                        type="text"
+                        id="input-buscar"
+                        placeholder="Buscar por nombre o categoría..."
+                        maxlength="100"
+                        required
+                    >
+                    <button type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+
+        <p id="estado"></p>
+        <div id="resultados"></div>
+    </section>
 
     <script src="js/app.js"></script>
 </body>
