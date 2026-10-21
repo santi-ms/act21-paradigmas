@@ -1,6 +1,6 @@
 {
   "name": "gym-control-ae1",
   "private": true,
-  "scripts": { "test": "node tests/catalogo.cjs && node tests/acceso.cjs && node tests/reclamos.cjs" },
+  "scripts": { "test": "node tests/catalogo.cjs && node tests/reclamos.cjs" },
   "devDependencies": { "playwright": "1.62.1" }
 }

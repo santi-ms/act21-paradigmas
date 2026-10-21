@@ -1,23 +1,14 @@
 <?php
-// api/logout.php - Cierra la sesión en el servidor y borra la cookie.
-header('Content-Type: application/json; charset=utf-8');
+// api/logout.php - Cierra la sesión en el servidor y expira la cookie.
 require_once __DIR__ . '/../includes/sesion.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['estado' => 'error', 'mensaje' => 'Método no permitido.']);
-    exit;
-}
-
+metodo('POST');
 iniciar_sesion_segura();
-$_SESSION = [];
 
-if (ini_get('session.use_cookies')) {
-    $p = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
+// Con una sesión activa se exige el token CSRF; si ya no hay sesión (vencida), el cierre es igualmente exitoso.
+if (isset($_SESSION['usuario_id'])) {
+    exigir_csrf();
 }
+destruir_sesion();
 
-session_destroy();
-
-http_response_code(200);
-echo json_encode(['estado' => 'exito', 'mensaje' => 'Sesión cerrada correctamente.']);
+responder(200, ['estado' => 'exito', 'mensaje' => 'Sesión cerrada correctamente.']);

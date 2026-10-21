@@ -19,3 +19,11 @@ CREATE TABLE IF NOT EXISTS usuarios (
 INSERT IGNORE INTO usuarios (id, nombre, email, password, plan_id, vencimiento) VALUES
 (12, 'Lucía Benítez', 'lucia.benitez@gymcontrol.test', '$2y$12$XkdbKdFvaTynHxJLuKksZuv4YRenwBMn.J15GnuPRFmvh9HYjLLCK', 'semestral', '2027-03-31'),
 (27, 'Martín Ríos',   'martin.rios@gymcontrol.test',   '$2y$12$XkdbKdFvaTynHxJLuKksZuv4YRenwBMn.J15GnuPRFmvh9HYjLLCK', 'mensual',    '2026-08-31');
+
+-- Contadores de intentos para limitar la fuerza bruta en login y registro.
+-- La clave es un hash SHA-256 (de la IP o del e-mail): no se guardan datos personales en claro.
+CREATE TABLE IF NOT EXISTS intentos_login (
+    clave   CHAR(64) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+    intentos INT UNSIGNED NOT NULL DEFAULT 0,
+    ventana DATETIME NOT NULL
+) ENGINE=InnoDB;

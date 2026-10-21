@@ -84,7 +84,7 @@ Las pruebas levantan su propio servidor local, comprueban la interacción y gene
 Se implementa la **opción 4: Módulo de registro y autenticación de usuarios**. La fundamentación utiliza **VSDM**: el sitio define una vista para el visitante y otra para el socio autenticado.
 
 - Envío de los formularios capturado con `addEventListener('submit', ...)` y `preventDefault()` en `js/app.js`.
-- Validación de campos vacíos con `.trim()`, formato de e-mail, longitud mínima de 8 caracteres y coincidencia de claves (`type="password"`).
+- Validación de campos vacíos con `.trim()`, formato de e-mail, longitud de 10 a 72 caracteres (política de claves en el servidor) y coincidencia de claves (`type="password"`).
 - Verificación en el servidor con `fetch()` y `async/await` contra `api/login.php` y `api/registro.php` (ver la sección de la AA 23): la clave se compara con su hash BCRYPT guardado en MySQL.
 - Mensaje genérico ante credenciales incorrectas, estados de verificación y errores HTTP o de red.
 - Vista del socio con plan, estado de la membresía (activa, por vencer, vencida o sin membresía), vencimiento y días restantes.
@@ -112,7 +112,7 @@ Las cuentas de prueba se cargan al importar `database.sql`. Las cuentas nuevas s
 
 ### Pruebas de la tarjeta 4
 
-`npm test` ejecuta también `tests/acceso.cjs`, con 35 comprobaciones en Google Chrome y fecha fija para evaluar los vencimientos. El registro se guarda en `docs/pruebas-tarjeta4.json` y las capturas en `docs/capturas-tarjeta4/`.
+El acceso ya no es una simulación, por lo que `tests/acceso.cjs` se reemplazó por la prueba HTTP de la API (ver la sección AA 23).
 
 ## AA 23: integración de seguridad y sesiones
 
@@ -132,6 +132,30 @@ El acceso de socios dejó de ser una simulación en el navegador y pasó a un ba
 - **Frontend (`js/app.js`):** al cargar la página consulta `api/perfil.php` con `fetch()`. Con sesión muestra la vista del socio; sin sesión, los formularios. Si una consulta devuelve 401 (sesión vencida), vuelve a la vista de visitante.
 - **XSS:** nombres, e-mails y demás datos del usuario se escriben con `.textContent`, nunca como HTML.
 - **Sesión:** ya no se usa `sessionStorage`; el estado lo mantiene el servidor.
+
+#### Refuerzos de seguridad
+
+| Medida | Dónde |
+| --- | --- |
+| **CSRF:** token por sesión en la cabecera `X-CSRF-Token` de todos los POST (login, registro, logout); se renueva al autenticar | `includes/sesion.php`, `api/csrf.php`, `js/app.js` |
+| **Límite de intentos:** 5 fallos por e-mail y 20 por IP cada 15 minutos en el login (10 altas por IP en el registro); responde `429` con `Retry-After` | `includes/limites.php`, tabla `intentos_login` |
+| **Manejo de errores:** `display_errors` apagado y un manejador global que responde un 500 genérico; el detalle queda solo en el log del servidor | `includes/api.php` |
+| **Validación de la petición:** `Content-Type: application/json` (415), tamaño máximo de 16 KB (413) y JSON válido (400) | `includes/api.php` |
+| **Vencimiento de sesión:** 30 minutos de inactividad y tope absoluto de 8 horas; modo estricto, ID solo por cookie | `includes/sesion.php` |
+| **Política de claves:** de 10 a 72 caracteres, sin claves comunes y sin incluir el nombre ni el e-mail | `includes/claves.php` |
+| **Cabeceras HTTP:** CSP estricta, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` y bloqueo de `database.sql`, `README.md`, `config/`, `includes/` y `tests/` | `.htaccess` (requiere Apache con `mod_headers`) |
+
+Notas: los contadores de intentos usan un hash de la IP y del e-mail, no datos en claro. El límite por e-mail permite que alguien bloquee temporalmente una cuenta ajena; es el costo habitual de esta defensa. El HSTS está comentado en el `.htaccess` hasta publicar el sitio con HTTPS. Para un servidor real conviene un usuario MySQL propio con permisos mínimos (`GYM_DB_USER` y `GYM_DB_PASS`).
+
+#### Prueba de la API
+
+Con MySQL y el servidor en marcha (`php -S 127.0.0.1:8000`) y la base importada:
+
+```bash
+python tests/api_smoke.py http://127.0.0.1:8000
+```
+
+Usa solo la biblioteca estándar de Python. Comprueba: 401 sin sesión, CSRF (403), tipo de contenido (415), JSON roto (400) y cuerpo enorme (413), política de claves (422), registro duplicado (409), login con renovación del ID de sesión y del token, logout con ID anterior inválido y bloqueo por intentos (429). Crea usuarios de prueba y, por el límite de intentos, conviene vaciar la tabla `intentos_login` si se repite muchas veces seguidas.
 
 ## Tarjeta 11: formulario de reclamos y consultas
 

@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                   <label for="ingreso-clave">Clave</label>
-                  <input type="password" id="ingreso-clave" name="clave" autocomplete="current-password" minlength="8">
+                  <input type="password" id="ingreso-clave" name="clave" autocomplete="current-password">
                 </div>
               </div>
             </fieldset>
@@ -73,12 +73,12 @@
                 </div>
                 <div class="form-group">
                   <label for="registro-clave">Clave</label>
-                  <input type="password" id="registro-clave" name="clave" autocomplete="new-password" minlength="8" aria-describedby="ayuda-clave">
-                  <small class="field-hint" id="ayuda-clave">Mínimo 8 caracteres.</small>
+                  <input type="password" id="registro-clave" name="clave" autocomplete="new-password" minlength="10" maxlength="72" aria-describedby="ayuda-clave">
+                  <small class="field-hint" id="ayuda-clave">Entre 10 y 72 caracteres. No uses claves comunes ni tu nombre o e-mail.</small>
                 </div>
                 <div class="form-group">
                   <label for="registro-repetir">Repetir clave</label>
-                  <input type="password" id="registro-repetir" name="repetir_clave" autocomplete="new-password" minlength="8">
+                  <input type="password" id="registro-repetir" name="repetir_clave" autocomplete="new-password" minlength="10" maxlength="72">
                 </div>
               </div>
             </fieldset>

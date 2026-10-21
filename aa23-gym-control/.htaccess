@@ -1,0 +1,20 @@
+# Gym Control - cabeceras de seguridad y archivos que no deben servirse por HTTP.
+# Requiere mod_headers (incluido en XAMPP).
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+    # Ninguna pagina usa scripts ni estilos en linea ni recursos externos: la CSP puede ser estricta.
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    # Activar solo cuando el sitio se publique con HTTPS:
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Archivos de proyecto y de base de datos: no se sirven por HTTP.
+<FilesMatch "^(database\.sql|README\.md|iniciar\.bat|package(-lock)?\.json|\.gitignore|\.gitattributes)$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes

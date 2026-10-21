@@ -160,7 +160,7 @@
 (() => {
   "use strict";
 
-  const LARGO_MINIMO = 8;
+  const LARGO_MINIMO = 10;
   const DIAS_AVISO = 7;
   const fechaLarga = new Intl.DateTimeFormat("es-AR", { dateStyle: "long" });
   const emailValido = texto => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto);
@@ -180,16 +180,38 @@
     return { ok: respuesta.ok, estado: respuesta.status, datos };
   }
 
-  const enviarJson = cuerpo => ({
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(cuerpo)
-  });
+  // Token CSRF: el servidor lo entrega con la sesión y debe viajar en la cabecera de cada POST.
+  let tokenCsrf = null;
+
+  async function asegurarToken() {
+    if (!tokenCsrf) {
+      const { ok, datos } = await api("api/csrf.php");
+      if (!ok || !datos || !datos.csrf_token) throw new Error("No se pudo obtener el token de seguridad.");
+      tokenCsrf = datos.csrf_token;
+    }
+    return tokenCsrf;
+  }
+
+  // Envía un POST con JSON y el token CSRF; si el token venció (403) lo renueva y reintenta una vez.
+  async function enviar(url, cuerpo, reintento = true) {
+    const token = await asegurarToken();
+    const respuesta = await api(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-CSRF-Token": token },
+      body: JSON.stringify(cuerpo)
+    });
+    if (respuesta.estado === 403 && reintento) {
+      tokenCsrf = null;
+      return enviar(url, cuerpo, false);
+    }
+    return respuesta;
+  }
 
   // Pregunta al servidor si hay una sesión activa (api/perfil.php, endpoint privado).
   async function consultarSesion() {
     try {
       const { ok, datos } = await api("api/perfil.php");
+      if (ok && datos && datos.csrf_token) tokenCsrf = datos.csrf_token;
       return ok && datos && datos.estado === "exito" ? datos.data : null;
     } catch {
       return null;
@@ -383,9 +405,10 @@
 
   // Envía las credenciales a api/login.php. Devuelve { usuario } o { error, conexion }.
   async function autenticar(email, clave) {
-    const { ok, datos } = await api("api/login.php", enviarJson({ email, password: clave }));
+    const { ok, datos } = await enviar("api/login.php", { email, password: clave });
     if (!datos) return { error: errorConexion, conexion: true };
     if (!ok || datos.estado !== "exito") return { error: datos.mensaje || "E-mail o clave incorrectos." };
+    tokenCsrf = datos.csrf_token || null; // el servidor entrega un token nuevo al autenticar
     return { usuario: datos.usuario };
   }
 
@@ -397,8 +420,7 @@
     const valido = validar([
       [ingresoEmail, email === "", "Ingresá tu e-mail."],
       [ingresoEmail, !emailValido(email), "Revisá el formato del e-mail."],
-      [ingresoClave, clave.trim() === "", "Ingresá tu clave."],
-      [ingresoClave, clave.length < LARGO_MINIMO, `La clave tiene al menos ${LARGO_MINIMO} caracteres.`]
+      [ingresoClave, clave.trim() === "", "Ingresá tu clave."]
     ], mensajeIngreso);
     if (!valido) return;
 
@@ -445,7 +467,7 @@
     ocupado(formRegistro, true);
     mostrarMensaje(mensajeRegistro, "Creando cuenta…");
     try {
-      const alta = await api("api/registro.php", enviarJson({ nombre, email, password: clave }));
+      const alta = await enviar("api/registro.php", { nombre, email, password: clave });
       if (!alta.datos) {
         mostrarMensaje(mensajeRegistro, errorConexion, "error");
         return;
@@ -479,11 +501,12 @@
 
   cerrarSesion.addEventListener("click", async () => {
     try {
-      await api("api/logout.php", { method: "POST" });
+      await enviar("api/logout.php", {});
     } catch (error) {
       console.error("No se pudo cerrar la sesión en el servidor:", error);
     }
     sesionActual = null;
+    tokenCsrf = null; // la sesión terminó: el próximo token se pide de nuevo
     await mostrarVista();
     mostrarMensaje(mensajeIngreso, "Cerraste sesión.", "exito");
     ingresoEmail.focus();
