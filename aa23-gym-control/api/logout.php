@@ -1,7 +1,7 @@
 <?php
-// api/logout.php - Cierra la sesión en el servidor y borra la cookie
+// api/logout.php - Cierra la sesión en el servidor y borra la cookie.
 header('Content-Type: application/json; charset=utf-8');
-require_once '../includes/sesion.php';
+require_once __DIR__ . '/../includes/sesion.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

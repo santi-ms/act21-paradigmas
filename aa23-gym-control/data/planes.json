@@ -1,0 +1,38 @@
+[
+  {
+    "id": "mensual",
+    "nombre": "Plan Mensual",
+    "duracionMeses": 1,
+    "precio": 25000,
+    "categoria": "Flexible",
+    "descripcion": "Acceso completo al gimnasio con renovación mes a mes.",
+    "destacado": false
+  },
+  {
+    "id": "trimestral",
+    "nombre": "Plan Trimestral",
+    "duracionMeses": 3,
+    "precio": 67500,
+    "categoria": "Constancia",
+    "descripcion": "Tres meses de entrenamiento con un valor preferencial.",
+    "destacado": false
+  },
+  {
+    "id": "semestral",
+    "nombre": "Plan Semestral",
+    "duracionMeses": 6,
+    "precio": 120000,
+    "categoria": "Progreso",
+    "descripcion": "Continuidad semestral para sostener objetivos a mediano plazo.",
+    "destacado": true
+  },
+  {
+    "id": "anual",
+    "nombre": "Plan Anual",
+    "duracionMeses": 12,
+    "precio": 216000,
+    "categoria": "Compromiso",
+    "descripcion": "La opción de mayor duración y mejor valor mensual.",
+    "destacado": false
+  }
+]

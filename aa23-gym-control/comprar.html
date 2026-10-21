@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formulario visual para seleccionar un plan de Gym Control.">
+  <title>Gym Control | Seleccionar plan</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Gym Control, inicio">
+        <span class="brand-mark" aria-hidden="true">GC</span>
+        <span>Gym <strong>Control</strong></span>
+      </a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="listado_tabla.html">Planes en tabla</a>
+        <a href="listado_box.html">Planes en cards</a>
+        <a href="acceso.html" data-enlace-acceso>Ingresar</a>
+        <a class="nav-cta" href="comprar.html" aria-current="page">Elegir plan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="page-hero page-hero-centered">
+      <div class="container">
+        <p class="eyebrow">Último paso</p>
+        <h1>Seleccioná tu plan</h1>
+        <p>Completá los datos solicitados. Este formulario es únicamente demostrativo.</p>
+      </div>
+    </section>
+
+    <section class="section form-section">
+      <div class="container form-container">
+        <form class="selection-form" action="#" method="get">
+          <fieldset>
+            <legend><span>01</span> Datos del cliente</legend>
+            <div class="form-grid">
+              <div class="form-group form-group-wide">
+                <label for="nombre">Nombre del cliente</label>
+                <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Ingresá nombre y apellido" required>
+              </div>
+              <div class="form-group form-group-wide">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" autocomplete="street-address" placeholder="Calle, número y localidad" required>
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="Ej.: 3764 123456" required>
+              </div>
+              <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="nombre@correo.com" required>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>02</span> Medio de pago</legend>
+            <div class="choice-grid choice-grid-three">
+              <label class="choice-card" for="pago-tarjeta">
+                <input type="radio" id="pago-tarjeta" name="medio_pago" value="tarjeta" required>
+                <span class="choice-content">
+                  <strong>Tarjeta</strong>
+                  <small>Crédito o débito</small>
+                </span>
+              </label>
+              <label class="choice-card" for="pago-efectivo">
+                <input type="radio" id="pago-efectivo" name="medio_pago" value="efectivo">
+                <span class="choice-content">
+                  <strong>Efectivo</strong>
+                  <small>Pago en recepción</small>
+                </span>
+              </label>
+              <label class="choice-card" for="pago-transferencia">
+                <input type="radio" id="pago-transferencia" name="medio_pago" value="transferencia">
+                <span class="choice-content">
+                  <strong>Transferencia</strong>
+                  <small>Transferencia bancaria</small>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>03</span> Listado de productos</legend>
+            <p class="fieldset-help">Elegí un único plan del gimnasio.</p>
+            <div class="choice-grid choice-grid-plans">
+              <label class="choice-card plan-choice" for="plan-mensual">
+                <input type="radio" id="plan-mensual" name="plan" data-precio="25000" value="mensual" required>
+                <span class="choice-content">
+                  <strong>Plan Mensual</strong>
+                  <small>1 mes</small>
+                </span>
+                <span class="choice-price">$ 25.000</span>
+              </label>
+              <label class="choice-card plan-choice" for="plan-trimestral">
+                <input type="radio" id="plan-trimestral" name="plan" data-precio="67500" value="trimestral">
+                <span class="choice-content">
+                  <strong>Plan Trimestral</strong>
+                  <small>3 meses</small>
+                </span>
+                <span class="choice-price">$ 67.500</span>
+              </label>
+              <label class="choice-card plan-choice" for="plan-semestral">
+                <input type="radio" id="plan-semestral" name="plan" data-precio="120000" value="semestral">
+                <span class="choice-content">
+                  <strong>Plan Semestral</strong>
+                  <small>6 meses</small>
+                </span>
+                <span class="choice-price">$ 120.000</span>
+              </label>
+              <label class="choice-card plan-choice" for="plan-anual">
+                <input type="radio" id="plan-anual" name="plan" data-precio="216000" value="anual">
+                <span class="choice-content">
+                  <strong>Plan Anual</strong>
+                  <small>12 meses</small>
+                </span>
+                <span class="choice-price">$ 216.000</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>04</span> Cantidad y subtotal</legend>
+            <p class="fieldset-help">El subtotal se recalcula en pantalla mientras escribís, sin recargar la página.</p>
+            <div class="quantity-layout">
+              <div class="form-group">
+                <label for="cantidad">Cantidad de membresías</label>
+                <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="20" step="1" inputmode="numeric">
+                <small class="field-hint">Entre 1 y 20 membresías del plan elegido.</small>
+              </div>
+
+              <div class="subtotal-panel">
+                <p class="subtotal-title">Detalle</p>
+                <div class="subtotal-row">
+                  <span>Plan seleccionado</span>
+                  <strong id="detalle-plan">Sin seleccionar</strong>
+                </div>
+                <div class="subtotal-row">
+                  <span>Precio unitario</span>
+                  <strong id="detalle-precio">$ 0</strong>
+                </div>
+                <div class="subtotal-row">
+                  <span>Cantidad</span>
+                  <strong id="detalle-cantidad">1</strong>
+                </div>
+                <div class="subtotal-row subtotal-total">
+                  <span>Subtotal a abonar</span>
+                  <strong id="subtotal">$ 0</strong>
+                </div>
+                <p class="subtotal-status" id="subtotal-estado" role="status" aria-live="polite">Elegí un plan para ver el subtotal.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>05</span> Código de descuento</legend>
+            <p class="fieldset-help">Ingresá tu código para comprobar si está vigente.</p>
+            <div class="cupon-layout">
+              <div class="form-group">
+                <label for="codigo-cupon">Código de cupón</label>
+                <input type="text" id="codigo-cupon" name="codigo_cupon" placeholder="Ej.: UCP10" autocomplete="off" aria-describedby="mensaje-cupon">
+              </div>
+              <button class="button button-outline" type="button" id="validar-cupon">Validar cupón</button>
+            </div>
+            <p id="mensaje-cupon" class="mensaje-cupon" role="status" aria-live="polite"></p>
+          </fieldset>
+
+          <div class="form-notice">
+            <span aria-hidden="true">i</span>
+            <p>La información no se guarda ni se procesa. La pantalla representa visualmente una futura selección de membresía.</p>
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">Confirmar</button>
+            <a class="button button-ghost" href="producto.html">Volver</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p><strong>Gym Control</strong> · Actividad Evaluativa 1</p>
+      <p>Paradigmas y Lenguajes de Programación III · 2026</p>
+    </div>
+  </footer>
+  <script src="js/subtotal.js" defer></script>
+  <script src="js/cupon.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

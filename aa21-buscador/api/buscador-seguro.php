@@ -1,8 +1,6 @@
 <?php
 // ✅ CÓDIGO SEGURO: Consulta preparada con PDO (el dato nunca se concatena al SQL)
 header('Content-Type: application/json; charset=utf-8');
-require_once '../includes/sesion.php';
-exigir_sesion(); // Guardián: sin sesión responde 401 y no llega a la base de datos
 require_once '../../config/conexion.php';
 
 // Solo se aceptan peticiones GET

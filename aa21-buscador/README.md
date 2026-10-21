@@ -5,9 +5,9 @@ Módulo backend en PHP que usa **PDO y consultas preparadas** para buscar produc
 ## Instalación
 
 1. Abrir phpMyAdmin y ejecutar `database.sql`.
-2. Copiar la carpeta `buscador` dentro de `C:\xampp\htdocs`.
+2. Copiar las carpetas `aa21-buscador` y `config` dentro de `C:\xampp\htdocs`.
 3. El proyecto reutiliza la conexión de la clase anterior, `htdocs/config/conexion.php` (usuario `root`, sin contraseña).
-4. Abrir `http://localhost/buscador/` en el navegador.
+4. Abrir `http://localhost/aa21-buscador/` en el navegador.
 
 ## Estructura
 
@@ -15,7 +15,7 @@ Módulo backend en PHP que usa **PDO y consultas preparadas** para buscar produc
 htdocs/
   config/conexion.php         conexión PDO (de la clase anterior, compartida)
   login.php                   login de la clase anterior
-  buscador/
+  aa21-buscador/
     api/
       buscador-vulnerable.php versión original (concatena la entrada en el SQL)
       buscador-seguro.php     versión corregida con consultas preparadas
@@ -46,20 +46,3 @@ En `buscador-seguro.php`:
 - **Columnas explícitas** en lugar de `SELECT *`.
 - **Errores genéricos:** no se devuelven mensajes internos de la base de datos al cliente.
 - **Frontend:** los resultados se insertan con `textContent`, evitando XSS.
-
-## AA 23 - Integración de seguridad y sesiones
-
-El buscador ahora exige autenticación. Se agregaron:
-
-| Archivo | Función |
-|---|---|
-| `api/registro.php` | Recibe JSON, valida, guarda el hash con `password_hash(..., PASSWORD_BCRYPT)` mediante consulta preparada. Responde 409 si el correo ya existe. |
-| `api/login.php` | Busca al usuario con consulta preparada, valida con `password_verify()`, ejecuta `session_start()`, aplica `session_regenerate_id(true)` y guarda `$_SESSION['usuario_id']`. |
-| `api/logout.php` | Vacía la sesión, borra la cookie y la destruye. |
-| `api/perfil.php` | Servicio privado con los datos del usuario de la sesión. |
-| `includes/sesion.php` | Cookie de sesión `HttpOnly` + `SameSite=Strict` y el guardián `exigir_sesion()`. |
-| `migrar_passwords.php` | Convierte contraseñas en texto plano de la tabla `usuarios` a BCRYPT (se ejecuta una vez por consola). |
-
-**Endpoint protegido:** `api/buscador-seguro.php` (y el vulnerable de comparación) llaman al guardián de sesión: si `!isset($_SESSION['usuario_id'])` responden `401 Unauthorized` antes de tocar la base de datos.
-
-**Frontend (`js/app.js`):** al cargar la página consulta `api/perfil.php` con `fetch()`. Con sesión muestra el panel y el buscador; sin sesión muestra login y registro. Si una búsqueda devuelve 401 (sesión vencida), vuelve al login. Todos los datos de usuario y producto se muestran con `textContent`, por lo que un nombre como `<script>...` se ve como texto y no se ejecuta.

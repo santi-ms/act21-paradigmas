@@ -1,5 +1,5 @@
 <?php
-// Funciones compartidas de sesión: todos los endpoints usan la misma configuración de cookie
+// Funciones compartidas de sesión: todos los endpoints usan la misma configuración de cookie.
 
 function iniciar_sesion_segura(): void
 {
@@ -17,7 +17,7 @@ function iniciar_sesion_segura(): void
     session_start();
 }
 
-// Guardián de sesión: corta la ejecución con 401 si no hay un usuario autenticado
+// Guardián de sesión: corta la ejecución con 401 si no hay un usuario autenticado.
 function exigir_sesion(): void
 {
     header('Content-Type: application/json; charset=utf-8');
@@ -25,7 +25,7 @@ function exigir_sesion(): void
 
     if (!isset($_SESSION['usuario_id'])) {
         http_response_code(401); // Unauthorized
-        echo json_encode(['estado' => 'error', 'mensaje' => 'Acceso no autorizado. Inicie sesión.']);
+        echo json_encode(['estado' => 'error', 'mensaje' => 'Acceso no autorizado. Iniciá sesión.']);
         exit;
     }
 }

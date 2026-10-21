@@ -1,0 +1,24 @@
+[
+  {
+    "id": "S-0012",
+    "nombre": "Lucía Benítez",
+    "email": "lucia.benitez@gymcontrol.test",
+    "sal": "a1c66166af42e259d21fd573f1ec1249",
+    "claveHash": "b8cbf04e7e7bcb9087293450cbbae2e836d0d78e515563c7d701d52959db2dd3",
+    "membresia": {
+      "planId": "semestral",
+      "vencimiento": "2027-03-31"
+    }
+  },
+  {
+    "id": "S-0027",
+    "nombre": "Martín Ríos",
+    "email": "martin.rios@gymcontrol.test",
+    "sal": "433c9f0a5f05655ebd748d7d91e0b022",
+    "claveHash": "09a8dec4a3af698793b364de895834b5c2c5ad6f939abc230a527906b97ca621",
+    "membresia": {
+      "planId": "mensual",
+      "vencimiento": "2026-08-31"
+    }
+  }
+]

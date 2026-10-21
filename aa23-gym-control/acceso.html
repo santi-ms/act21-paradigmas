@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ingresá o creá tu cuenta de socio en Gym Control.">
+  <title>Gym Control | Acceso de socios</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Gym Control, inicio">
+        <span class="brand-mark" aria-hidden="true">GC</span>
+        <span>Gym <strong>Control</strong></span>
+      </a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="listado_tabla.html">Planes en tabla</a>
+        <a href="listado_box.html">Planes en cards</a>
+        <a href="acceso.html" data-enlace-acceso aria-current="page">Ingresar</a>
+        <a class="nav-cta" href="comprar.html">Elegir plan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="page-hero page-hero-centered">
+      <div class="container">
+        <p class="eyebrow">Portal del socio</p>
+        <h1>Tu cuenta en Gym Control</h1>
+        <p>Ingresá para consultar el estado de tu membresía. Las cuentas son de demostración.</p>
+      </div>
+    </section>
+
+    <section class="section form-section">
+      <div class="container">
+        <noscript><p>Habilitá JavaScript para ingresar. Mientras tanto podés consultar <a href="listado_box.html">los planes</a>.</p></noscript>
+
+        <!-- Vista de visitante: solo formularios de acceso y registro. -->
+        <div id="vista-visitante" class="access-layout">
+          <form id="form-ingreso" class="selection-form access-form" action="#" method="post" novalidate>
+            <fieldset>
+              <legend><span>01</span> Ingresar</legend>
+              <div class="access-fields">
+                <div class="form-group">
+                  <label for="ingreso-email">E-mail</label>
+                  <input type="email" id="ingreso-email" name="email" autocomplete="username" placeholder="nombre@correo.com">
+                </div>
+                <div class="form-group">
+                  <label for="ingreso-clave">Clave</label>
+                  <input type="password" id="ingreso-clave" name="clave" autocomplete="current-password" minlength="8">
+                </div>
+              </div>
+            </fieldset>
+            <button class="button button-primary button-full" type="submit">Ingresar</button>
+            <p id="mensaje-ingreso" class="access-message" role="status" aria-live="polite"></p>
+          </form>
+
+          <form id="form-registro" class="selection-form access-form" action="#" method="post" novalidate>
+            <fieldset>
+              <legend><span>02</span> Crear cuenta</legend>
+              <div class="access-fields">
+                <div class="form-group">
+                  <label for="registro-nombre">Nombre y apellido</label>
+                  <input type="text" id="registro-nombre" name="nombre" autocomplete="name" placeholder="Ingresá nombre y apellido">
+                </div>
+                <div class="form-group">
+                  <label for="registro-email">E-mail</label>
+                  <input type="email" id="registro-email" name="email" autocomplete="email" placeholder="nombre@correo.com">
+                </div>
+                <div class="form-group">
+                  <label for="registro-clave">Clave</label>
+                  <input type="password" id="registro-clave" name="clave" autocomplete="new-password" minlength="8" aria-describedby="ayuda-clave">
+                  <small class="field-hint" id="ayuda-clave">Mínimo 8 caracteres.</small>
+                </div>
+                <div class="form-group">
+                  <label for="registro-repetir">Repetir clave</label>
+                  <input type="password" id="registro-repetir" name="repetir_clave" autocomplete="new-password" minlength="8">
+                </div>
+              </div>
+            </fieldset>
+            <button class="button button-outline button-full" type="submit">Crear cuenta</button>
+            <p id="mensaje-registro" class="access-message" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <!-- Vista de socio autenticado: datos de su membresía. -->
+        <section id="vista-socio" class="member-panel" aria-labelledby="saludo-socio" hidden>
+          <p class="eyebrow" id="socio-etiqueta">Socio</p>
+          <h2 id="saludo-socio" tabindex="-1">Hola</h2>
+          <dl class="product-data">
+            <div>
+              <dt>Plan</dt>
+              <dd id="socio-plan">—</dd>
+            </div>
+            <div>
+              <dt>Estado</dt>
+              <dd><span id="socio-estado" class="estado-badge">—</span></dd>
+            </div>
+            <div>
+              <dt>Vencimiento</dt>
+              <dd id="socio-vencimiento">—</dd>
+            </div>
+            <div>
+              <dt>Días restantes</dt>
+              <dd id="socio-dias">—</dd>
+            </div>
+          </dl>
+          <p id="socio-aviso" class="member-note"></p>
+          <div class="form-actions">
+            <a class="button button-primary" id="socio-renovar" href="comprar.html">Renovar plan</a>
+            <button class="button button-ghost" id="cerrar-sesion" type="button">Cerrar sesión</button>
+          </div>
+        </section>
+
+        <div class="form-notice access-notice">
+          <span aria-hidden="true">i</span>
+          <p>Prototipo académico: las cuentas se guardan en MySQL con la clave protegida (BCRYPT) y la sesión se mantiene en el servidor PHP. Las cuentas de prueba figuran en el README del repositorio.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p><strong>Gym Control</strong> · Actividad Evaluativa 1</p>
+      <p>Paradigmas y Lenguajes de Programación III · 2026</p>
+    </div>
+  </footer>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
