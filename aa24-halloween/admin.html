@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administración · Noche de Disfraces</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-requiere="admin">
+  <header class="cabecera">
+    <a class="logo" href="index.html"><span aria-hidden="true">🎃</span> Noche de Disfraces</a>
+    <nav class="menu" aria-label="Principal">
+      <a href="index.html">Inicio</a>
+      <a href="admin.html" id="nav-admin" aria-current="page" hidden>Administración</a>
+      <span id="nav-usuario" class="usuario"></span>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>Administración de disfraces</h1>
+
+    <!-- Se muestra a quien no es administrador. El control real está en el servidor (401 / 403). -->
+    <section id="sin-acceso" class="panel" hidden>
+      <p id="texto-sin-acceso" class="mensaje info"></p>
+      <p><a class="boton" href="login.html">Ir a iniciar sesión</a></p>
+    </section>
+
+    <section id="panel" hidden>
+      <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+
+      <div class="panel">
+        <h2 id="titulo-form">Nuevo disfraz</h2>
+        <form id="form-disfraz" novalidate>
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" maxlength="50" required>
+          </div>
+          <div class="campo">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" rows="4" maxlength="2000" required></textarea>
+          </div>
+          <div class="campo">
+            <label for="foto">Foto (JPG, PNG, GIF o WebP, hasta 1 MB)</label>
+            <input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/gif,image/webp">
+            <div id="vista-previa" class="vista-previa" hidden></div>
+          </div>
+          <label id="quitar" class="casilla" hidden><input id="quitar-foto" type="checkbox"> Quitar la foto actual</label>
+          <div class="acciones">
+            <button class="boton" type="submit" id="guardar">Guardar disfraz</button>
+            <button class="boton boton-borde" type="button" id="cancelar" hidden>Cancelar edición</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Disfraces cargados</h2>
+        <div class="tabla-envoltura">
+          <table class="tabla">
+            <thead>
+              <tr><th>Foto</th><th>Nombre</th><th>Descripción</th><th>Votos</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie"><p>👻 Paradigmas y Lenguajes de Programación III · AA 24</p></footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

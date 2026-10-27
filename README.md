@@ -6,6 +6,7 @@ Cada actividad está en su propia carpeta.
 | --- | --- | --- |
 | **AA 21** | [`aa21-buscador/`](aa21-buscador) | Buscador de productos con PHP, PDO y consultas preparadas, frente a su versión vulnerable a inyección SQL, con frontend en JavaScript vanilla (`fetch`). |
 | **AA 23** | [`aa23-gym-control/`](aa23-gym-control) | Gym Control: registro y acceso de socios con PHP + MySQL, contraseñas con BCRYPT, sesiones con `session_start()`, endpoints privados con `401 Unauthorized` y protección contra XSS. |
+| **AA 24** | [`aa24-halloween/`](aa24-halloween) | Noche de Disfraces: concurso de Halloween con API REST en PHP + MySQL. Registro, login, votación sin duplicados, panel de administración con CRUD y carga de imágenes. |
 
 Archivos de la clase anterior que usa el buscador:
 

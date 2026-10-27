@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresar · Noche de Disfraces</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="cabecera">
+    <a class="logo" href="index.html"><span aria-hidden="true">🎃</span> Noche de Disfraces</a>
+    <nav class="menu" aria-label="Principal">
+      <a href="index.html">Inicio</a>
+      <a href="admin.html" id="nav-admin" hidden>Administración</a>
+      <span id="nav-usuario" class="usuario"></span>
+    </nav>
+  </header>
+
+  <main class="contenedor angosto">
+    <section class="panel">
+      <h1>Iniciar sesión</h1>
+      <p class="ayuda">Ingresá con tu nombre de usuario para poder votar.</p>
+      <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+
+      <form id="form-login" novalidate>
+        <div class="campo">
+          <label for="nombre">Nombre de usuario</label>
+          <input id="nombre" name="nombre" type="text" autocomplete="username" maxlength="50" required>
+        </div>
+        <div class="campo">
+          <label for="clave">Contraseña</label>
+          <input id="clave" name="clave" type="password" autocomplete="current-password" maxlength="72" required>
+        </div>
+        <button class="boton boton-ancho" type="submit">Ingresar</button>
+      </form>
+      <p class="alterno">¿No tenés cuenta? <a href="registro.html">Registrate</a></p>
+    </section>
+  </main>
+
+  <footer class="pie"><p>👻 Paradigmas y Lenguajes de Programación III · AA 24</p></footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

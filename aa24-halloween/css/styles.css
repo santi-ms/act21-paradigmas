@@ -1,0 +1,169 @@
+/* Noche de Disfraces - tema de Halloween */
+:root {
+  --fondo: #130b1f;
+  --fondo-2: #1d1030;
+  --panel: #231538;
+  --borde: #3b2461;
+  --naranja: #ff7a18;
+  --naranja-2: #ffa03a;
+  --violeta: #8d4dff;
+  --verde: #9dff5c;
+  --texto: #f3ecff;
+  --suave: #b9a8d6;
+  --error: #ff6b7a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  line-height: 1.55;
+  color: var(--texto);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(141, 77, 255, 0.22), transparent 38%),
+    radial-gradient(circle at 85% 0%, rgba(255, 122, 24, 0.18), transparent 34%),
+    radial-gradient(circle at 50% 100%, rgba(157, 255, 92, 0.07), transparent 40%),
+    var(--fondo);
+}
+
+a { color: var(--naranja-2); }
+a:hover { color: var(--verde); }
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.2; }
+h1 { font-size: 2.2rem; margin: 0 0 0.5rem; color: var(--naranja); text-shadow: 0 0 18px rgba(255, 122, 24, 0.45); }
+h2 { font-size: 1.4rem; margin: 0 0 1rem; color: var(--naranja-2); }
+h3 { font-size: 1.25rem; margin: 0 0 0.4rem; color: var(--texto); }
+
+/* ---- Cabecera y pie ---- */
+.cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 0.9rem 1.5rem;
+  background: rgba(19, 11, 31, 0.92);
+  border-bottom: 2px solid var(--naranja);
+  box-shadow: 0 4px 24px rgba(255, 122, 24, 0.18);
+}
+.logo { font-family: Georgia, serif; font-size: 1.45rem; font-weight: 700; color: var(--naranja); text-decoration: none; }
+.logo:hover { color: var(--naranja-2); }
+.menu { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.25rem; }
+.menu a:not(.boton) { text-decoration: none; color: var(--texto); padding: 0.2rem 0; border-bottom: 2px solid transparent; }
+.menu a:not(.boton):hover, .menu a[aria-current="page"] { border-bottom-color: var(--naranja); color: var(--naranja-2); }
+.usuario { display: flex; align-items: center; gap: 0.6rem; }
+.saludo { color: var(--suave); }
+.saludo strong { color: var(--verde); }
+
+.pie { margin-top: auto; padding: 1.5rem; text-align: center; color: var(--suave); font-size: 0.9rem; border-top: 1px solid var(--borde); }
+.pie p { margin: 0; }
+
+/* ---- Estructura ---- */
+.contenedor { width: 100%; max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+.contenedor.angosto { max-width: 520px; }
+.portada { text-align: center; margin-bottom: 1.75rem; }
+.portada p { max-width: 640px; margin: 0.5rem auto 0; color: var(--suave); }
+
+.panel {
+  background: linear-gradient(180deg, var(--panel), var(--fondo-2));
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+.ayuda { color: var(--suave); margin-top: 0; }
+.alterno { text-align: center; color: var(--suave); margin-bottom: 0; }
+
+/* ---- Tarjetas de disfraces ---- */
+.grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.4rem; }
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--panel), var(--fondo-2));
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.tarjeta:hover { transform: translateY(-5px); border-color: var(--naranja); box-shadow: 0 10px 30px rgba(255, 122, 24, 0.28); }
+
+.foto { height: 190px; background: #0d0716; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.foto img { width: 100%; height: 100%; object-fit: cover; }
+.sin-foto { font-size: 4.5rem; filter: drop-shadow(0 0 14px rgba(255, 122, 24, 0.7)); }
+.cuerpo { padding: 1rem 1.1rem 0.4rem; flex: 1; }
+.descripcion { margin: 0; color: var(--suave); font-size: 0.95rem; }
+.pie-tarjeta { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.9rem 1.1rem 1.1rem; }
+.votos { font-weight: 700; color: var(--verde); }
+
+/* ---- Botones ---- */
+.boton {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--naranja);
+  border-radius: 999px;
+  background: var(--naranja);
+  color: #1a0c00;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.boton:hover:not(:disabled) { background: var(--naranja-2); border-color: var(--naranja-2); color: #1a0c00; transform: translateY(-1px); }
+.boton:disabled { opacity: 0.55; cursor: not-allowed; }
+.boton-borde { background: transparent; color: var(--naranja-2); }
+.boton-borde:hover:not(:disabled) { background: rgba(255, 122, 24, 0.15); color: var(--naranja-2); }
+.boton-peligro { background: transparent; border-color: var(--error); color: var(--error); }
+.boton-peligro:hover:not(:disabled) { background: var(--error); border-color: var(--error); color: #1a0008; }
+.boton-chico { padding: 0.3rem 0.85rem; font-size: 0.9rem; }
+.boton-ancho { width: 100%; margin-top: 0.5rem; }
+.boton:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+
+/* ---- Formularios ---- */
+.campo { margin-bottom: 1.1rem; }
+label { display: block; margin-bottom: 0.35rem; font-weight: 600; }
+input[type="text"], input[type="password"], input[type="file"], textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: #150c24;
+  color: var(--texto);
+  font: inherit;
+}
+input[aria-invalid="true"] { border-color: var(--error); }
+small { display: block; margin-top: 0.3rem; color: var(--suave); }
+.casilla { display: flex; align-items: center; gap: 0.5rem; font-weight: 400; margin-bottom: 1rem; }
+.acciones { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+.mensaje { margin: 0 0 1.1rem; padding: 0; }
+.mensaje:empty { display: none; }
+.mensaje.info, .mensaje.exito, .mensaje.error { padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid; }
+.mensaje.info { background: rgba(141, 77, 255, 0.14); border-color: var(--violeta); color: #d9c8ff; }
+.mensaje.exito { background: rgba(157, 255, 92, 0.12); border-color: var(--verde); color: var(--verde); }
+.mensaje.error { background: rgba(255, 107, 122, 0.12); border-color: var(--error); color: #ffb3bb; }
+
+/* ---- Administración ---- */
+.vista-previa { margin-top: 0.75rem; }
+.vista-previa img { max-width: 220px; max-height: 160px; border-radius: 8px; border: 1px solid var(--borde); }
+.tabla-envoltura { overflow-x: auto; }
+.tabla { width: 100%; border-collapse: collapse; }
+.tabla th, .tabla td { padding: 0.7rem 0.8rem; text-align: left; vertical-align: middle; border-bottom: 1px solid var(--borde); }
+.tabla th { color: var(--naranja-2); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.miniatura { width: 64px; height: 48px; object-fit: cover; border-radius: 6px; display: block; }
+.sin-foto-chica { font-size: 1.8rem; }
+.celda-acciones { white-space: nowrap; }
+.celda-acciones .boton + .boton { margin-left: 0.4rem; }
+
+@media (max-width: 600px) {
+  h1 { font-size: 1.7rem; }
+  .cabecera { justify-content: center; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear cuenta · Noche de Disfraces</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="cabecera">
+    <a class="logo" href="index.html"><span aria-hidden="true">🎃</span> Noche de Disfraces</a>
+    <nav class="menu" aria-label="Principal">
+      <a href="index.html">Inicio</a>
+      <a href="admin.html" id="nav-admin" hidden>Administración</a>
+      <span id="nav-usuario" class="usuario"></span>
+    </nav>
+  </header>
+
+  <main class="contenedor angosto">
+    <section class="panel">
+      <h1>Crear cuenta</h1>
+      <p class="ayuda">Registrate para votar por tus disfraces favoritos.</p>
+      <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+
+      <form id="form-registro" novalidate>
+        <div class="campo">
+          <label for="nombre">Nombre de usuario</label>
+          <input id="nombre" name="nombre" type="text" autocomplete="username" maxlength="50" required>
+          <small>De 3 a 50 caracteres: letras, números, punto, guion o guion bajo.</small>
+        </div>
+        <div class="campo">
+          <label for="clave">Contraseña</label>
+          <input id="clave" name="clave" type="password" autocomplete="new-password" minlength="10" maxlength="72" required>
+          <small>Entre 10 y 72 caracteres. No uses claves comunes ni tu nombre de usuario.</small>
+        </div>
+        <div class="campo">
+          <label for="repetir">Repetir contraseña</label>
+          <input id="repetir" name="repetir" type="password" autocomplete="new-password" minlength="10" maxlength="72" required>
+        </div>
+        <button class="boton boton-ancho" type="submit">Crear cuenta</button>
+      </form>
+      <p class="alterno">¿Ya tenés cuenta? <a href="login.html">Ingresá acá</a></p>
+    </section>
+  </main>
+
+  <footer class="pie"><p>👻 Paradigmas y Lenguajes de Programación III · AA 24</p></footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/registro.js"></script>
+</body>
+</html>

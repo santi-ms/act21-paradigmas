@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Votá por tu disfraz de Halloween favorito.">
+  <title>Concurso de Disfraces de Halloween</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="cabecera">
+    <a class="logo" href="index.html"><span aria-hidden="true">🎃</span> Noche de Disfraces</a>
+    <nav class="menu" aria-label="Principal">
+      <a href="index.html" aria-current="page">Inicio</a>
+      <a href="admin.html" id="nav-admin" hidden>Administración</a>
+      <span id="nav-usuario" class="usuario"></span>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="portada">
+      <h1>Concurso de Disfraces de Halloween</h1>
+      <p>Elegí tus disfraces favoritos. Para votar necesitás una cuenta: cada persona puede votar una sola vez por cada disfraz.</p>
+    </section>
+
+    <p id="aviso" class="mensaje" role="status" aria-live="polite"></p>
+    <section id="lista" class="grilla" aria-label="Disfraces"></section>
+  </main>
+
+  <footer class="pie">
+    <p>👻 Paradigmas y Lenguajes de Programación III · AA 24</p>
+  </footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
